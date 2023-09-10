@@ -13,9 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>connect-world-server</name>
 	<description>A server for a social media</description>
-	<!--<properties>
-		<java.version>17</java.version>
-	</properties> -->
+	<properties>
+		<java.version>11</java.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -56,17 +56,6 @@
               <artifactId>lombok</artifactId>
             </exclude>
           </excludes>
-        </configuration>
-      </plugin>
-
-      <!-- Maven Compiler Plugin -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version> <!-- Use the latest version available -->
-        <configuration>
-          <source>17</source>
-          <target>17</target>
         </configuration>
       </plugin>
     </plugins>
