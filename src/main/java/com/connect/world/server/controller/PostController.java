@@ -6,11 +6,13 @@ import com.connect.world.server.model.Post;
 import com.connect.world.server.model.Post;
 import com.connect.world.server.service.PostService;
 import com.connect.world.server.service.PostService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -47,5 +49,11 @@ public class PostController {
   @GetMapping
   public List<Post> getPost() {
     return postService.getPost();
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteTodoById(@PathVariable UUID id) throws Exception {
+    postService.deletePostById(id);
+    return ResponseEntity.noContent().build();
   }
 }
