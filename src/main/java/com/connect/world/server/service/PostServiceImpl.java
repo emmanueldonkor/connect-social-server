@@ -7,8 +7,9 @@ import com.connect.world.server.repository.PostEntityRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +48,7 @@ public class PostServiceImpl implements PostService{
     List<PostEntity> postEntities
       = postEntityRepository.findAll();
 
-    List<Post> posts = new ArrayList<>();
+    /*List<Post> posts = new ArrayList<>();
     posts = postEntities.stream()
       .map((postEntity) ->
         Post.builder()
@@ -59,7 +60,27 @@ public class PostServiceImpl implements PostService{
           .image(postEntity.getImage())
           .profilePic(postEntity.getProfilePic())
           .build()
-      ).collect(Collectors.toList());
-    return posts;
+      ).collect(Collectors.toList());*/
+    return postEntities.stream()
+      .map(postEntity -> Post.builder()
+        .id(postEntity.getId())
+        .timeStamp(postEntity.getTimeStamp())
+        .email(postEntity.getEmail())
+        .name(postEntity.getName())
+        .post(postEntity.getPost())
+        .image(postEntity.getImage())
+        .profilePic(postEntity.getProfilePic())
+        .build())
+      .collect(Collectors.toList());
+  }
+  @Override
+  public void deletePostById(UUID id) throws Exception {
+    Optional<PostEntity> post= postEntityRepository.findById(id);
+    if(post.isPresent()){
+      postEntityRepository.delete(post.get());
+    }
+    else{
+      throw new Exception("The post can not be found"+ post);
+    }
   }
 }
